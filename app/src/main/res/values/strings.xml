@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PRCO304</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Exit</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_usingapp">Using this App</string>
+    <string name="menu_sites">Sites A-Z</string>
+    <string name="menu_planning">Planning your Visit</string>
+    <string name="menu_split">App Settings</string>
+    <string name="menu_share">Share App</string>
+    <string name="menu_settings">Settings</string>
+</resources>
