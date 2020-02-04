@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "70483281774",
+    "firebase_url": "https://prco-ar.firebaseio.com",
+    "project_id": "prco-ar",
+    "storage_bucket": "prco-ar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70483281774:android:00492abd252c31b90d637f",
+        "android_client_info": {
+          "package_name": "com.example.prco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70483281774-bjcv4kqtvlo7rr1d6eoon2gm6ob90ubf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp82uk6xBhTVmSMsVYZnhphq9UTBP2frc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70483281774-bjcv4kqtvlo7rr1d6eoon2gm6ob90ubf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
