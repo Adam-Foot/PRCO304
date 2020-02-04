@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.prco.PermissionUtils;
 import com.example.prco.R;
 import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,7 +41,7 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_locations_fragment);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -52,10 +53,12 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+        LatLng pos = new LatLng(50.376289, -4.143841);
 
         enableMyLocation();
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
+
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -63,8 +66,6 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         }
 
         try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
             boolean success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.map_style));
@@ -75,8 +76,10 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
-        // Position the map's camera near Sydney, Australia.
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-34, 151)));
+
+        // Position the map's camera over Plymouth
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 13);
+        mMap.animateCamera(cameraUpdate);
     }
 
 
