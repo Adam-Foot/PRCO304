@@ -12,10 +12,19 @@
     <string name="menu_split">App Settings</string>
     <string name="menu_share">Share App</string>
     <string name="menu_settings">Settings</string>
+    <string name="menu_admin">Admin Panel</string>
     <string name="title_activity_nearby_locations_fragment">Map</string>
 
     <string name="nearby_locations">See Nearby Locations</string>
     <string name="location_permission_denied">This app requires location permissions to allow it to see nearby locations to you. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'PRCO304\'.</string>
     <string name="permission_required_toast">Your location is needed to be able to use this app correctly!</string>
     <string name="permission_rationale_location">Access to your location is important when it comes to showing you nearby locations you can visit.</string>
+
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="password_forget">Forgotten your password?</string>
+
+    <string name="adminText">Please login below. If you do not have an Admin account you cannot login.</string>
 </resources>
