@@ -15,4 +15,7 @@
     <string name="title_activity_nearby_locations_fragment">Map</string>
 
     <string name="nearby_locations">See Nearby Locations</string>
+    <string name="location_permission_denied">This app requires location permissions to allow it to see nearby locations to you. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'PRCO304\'.</string>
+    <string name="permission_required_toast">Your location is needed to be able to use this app correctly!</string>
+    <string name="permission_rationale_location">Access to your location is important when it comes to showing you nearby locations you can visit.</string>
 </resources>
