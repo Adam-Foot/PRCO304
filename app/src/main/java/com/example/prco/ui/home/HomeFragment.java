@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button nearbylocations = (Button)root.findViewById(R.id.btnNearby);
+        Button nearbylocations = root.findViewById(R.id.btnNearby);
         nearbylocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
