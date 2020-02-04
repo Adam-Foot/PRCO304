@@ -23,6 +23,7 @@
     <string name="email">Email Address</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="password_forget">Forgotten your password?</string>
 
     <string name="adminText">Please login below. If you do not have an Admin account you cannot login.</string>
