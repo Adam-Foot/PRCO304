@@ -2,7 +2,9 @@ package com.example.prco.ui.googlemaps;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.prco.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -10,11 +12,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class NearbyLocationsFragment extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private static final String TAG = NearbyLocationsFragment.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +35,16 @@ public class NearbyLocationsFragment extends FragmentActivity implements OnMapRe
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        try {
+            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+
+            if (!success) {
+                Log.e(TAG, "Maps styling parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Cannot find Google Maps Styling! Error: ", e);
+        }
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(50, -4)));
     }
 }
