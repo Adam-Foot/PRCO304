@@ -27,4 +27,8 @@
     <string name="password_forget">Forgotten your password?</string>
 
     <string name="adminText">Please login below. If you do not have an Admin account you cannot login.</string>
+
+    <string name="find_site_walk">Find a Site Walk</string>
+
+    <string name="selfie_with_landmark">Take a Virtual Selfie with a Landmark</string>
 </resources>
