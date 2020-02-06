@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.prco.CameraPermissionHelper;
 import com.example.prco.PermissionUtils;
 import com.example.prco.R;
 import com.google.ar.core.ArCoreApk;
@@ -65,7 +64,6 @@ public class LandmarkSelfie extends AppCompatActivity {
     private void enableCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Permission to access the camera is missing.
             PermissionUtils.requestPermission(this, CAMERA_PERMISSION_REQUEST_CODE,
                     Manifest.permission.CAMERA, true);
         }
@@ -91,32 +89,24 @@ public class LandmarkSelfie extends AppCompatActivity {
         super.onResume();
 
         if (mPermissionDenied) {
-            // Permission was not granted, display error dialog.
             showMissingPermissionError();
             mPermissionDenied = false;
         }
 
-
-        // Make sure Google Play Services for AR is installed and up to date.
         try {
             if (mSession == null) {
 
                 switch (ArCoreApk.getInstance().requestInstall(this, mUserRequestedInstall)) {
                     case INSTALLED:
-                        // Success, create the AR session.
                         mSession = new Session(this);
                         break;
                     case INSTALL_REQUESTED:
-                        // Ensures next invocation of requestInstall() will either return
-                        // INSTALLED or throw an exception.
                         mUserRequestedInstall = false;
                 }
             }
         } catch (UnavailableUserDeclinedInstallationException e) {
-            // Display an appropriate message to the user and return gracefully.
             Toast.makeText(this, "To be able to use this feature you need to have the latest version of Google Play Services. Please go back and try again.", Toast.LENGTH_LONG)
                     .show();
-
         } catch (UnavailableArcoreNotInstalledException e) {
             Toast.makeText(this, "To be able to use this feature you must have AR Core installed. You can find it on the Google Play Store.", Toast.LENGTH_LONG)
                     .show();
