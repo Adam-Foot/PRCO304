@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
 import com.example.prco.ui.googlemaps.NearbyLocationsFragment;
+import com.example.prco.ui.landmarkselfie.LandmarkSelfie;
 import com.example.prco.ui.sitewalks.SiteWalks;
 
 public class HomeFragment extends Fragment {
@@ -48,7 +49,8 @@ public class HomeFragment extends Fragment {
         selfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent selfieIntent = new Intent(v.getContext(), LandmarkSelfie.class);
+                startActivityForResult(selfieIntent, 0);
             }
         });
 
