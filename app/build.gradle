@@ -52,3 +52,8 @@ sceneform.asset('src/main/assets/andy.obj',
         'default',
         'src/main/res/raw/andy.sfa',
         'src/main/assets/andy')
+
+sceneform.asset('sampledata/fox_face.fbx',
+        'default',
+        'sampledata/fox_face.sfa',
+        'src/main/res/raw/fox_face')
