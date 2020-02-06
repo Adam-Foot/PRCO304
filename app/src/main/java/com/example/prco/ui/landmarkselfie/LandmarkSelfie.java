@@ -1,12 +1,17 @@
 package com.example.prco.ui.landmarkselfie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.prco.CameraPermissionHelper;
+import com.example.prco.PermissionUtils;
 import com.example.prco.R;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.Session;
@@ -15,10 +20,9 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.rendering.ModelRenderable;
-
-import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALLED;
-import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALL_REQUESTED;
+import com.google.ar.sceneform.ux.ArFragment;
 
 
 public class LandmarkSelfie extends AppCompatActivity {
@@ -29,11 +33,17 @@ public class LandmarkSelfie extends AppCompatActivity {
     private ModelRenderable andyRenderable;
     private static final String TAG = "LandmarkSelfie";
 
+    private ArFragment arFragment;
+
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 1;
+    private boolean mPermissionDenied = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmark_selfie);
 
+        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.andy)
@@ -45,19 +55,34 @@ public class LandmarkSelfie extends AppCompatActivity {
                             return null;
                         });
 
+        Node node = new Node();
+        node.setParent(arFragment.getArSceneView().getScene());
+        node.setRenderable(andyRenderable);
 
     }
 
+
+    private void enableCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the camera is missing.
+            PermissionUtils.requestPermission(this, CAMERA_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.CAMERA, true);
+        }
+    }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            Toast.makeText(this, "Camera permission is needed to run this application", Toast.LENGTH_LONG)
-                    .show();
-            if (!CameraPermissionHelper.shouldShowRequestPermissionRationale(this)) {
-                // Permission denied with checking "Do not ask again".
-                CameraPermissionHelper.launchPermissionSettings(this);
-            }
-            finish();
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode != CAMERA_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.CAMERA)) {
+            enableCamera();
+        } else {
+            mPermissionDenied = true;
         }
     }
 
@@ -65,9 +90,10 @@ public class LandmarkSelfie extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            CameraPermissionHelper.requestCameraPermission(this);
-            return;
+        if (mPermissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            mPermissionDenied = false;
         }
 
 
@@ -104,6 +130,11 @@ public class LandmarkSelfie extends AppCompatActivity {
             Toast.makeText(this, "Your phone doesn't seem to support AR Core at this moment. Unfortunately you will not be able to use this feature.", Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
     }
 }
 
