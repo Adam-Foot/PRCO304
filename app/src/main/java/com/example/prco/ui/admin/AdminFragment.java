@@ -1,6 +1,5 @@
 package com.example.prco.ui.admin;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,14 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
@@ -45,7 +40,6 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         adminViewModel =
                 ViewModelProviders.of(this).get(AdminViewModel.class);
         View root = inflater.inflate(R.layout.fragment_admin, container, false);
-        final TextView textView = root.findViewById(R.id.text_admin);
 
         mEmailField = root.findViewById(R.id.txtEmail);
         mPasswordField = root.findViewById(R.id.txtPassword);
@@ -57,12 +51,6 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance();
 
-        adminViewModel.getText().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
 
 
