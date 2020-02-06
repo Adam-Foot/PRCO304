@@ -48,12 +48,7 @@ dependencies {
 }
 
 
-sceneform.asset('../../../../../../Desktop/andy.obj',
+sceneform.asset('src/main/assets/andy.obj',
         'default',
-        '../../../../../../Desktop/andy.sfa',
+        'src/main/res/raw/andy.sfa',
         'src/main/assets/andy')
-
-sceneform.asset('../../../../../../Desktop/andy.obj',
-        'default',
-        '../../../../../../Desktop/andy.sfa',
-        'src/main/res/raw/andy')
