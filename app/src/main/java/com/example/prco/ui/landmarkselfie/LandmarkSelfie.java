@@ -3,6 +3,7 @@ package com.example.prco.ui.landmarkselfie;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.prco.CameraPermissionHelper;
@@ -14,6 +15,7 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.ar.sceneform.rendering.ModelRenderable;
 
 import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALLED;
 import static com.google.ar.core.ArCoreApk.InstallStatus.INSTALL_REQUESTED;
@@ -24,10 +26,26 @@ public class LandmarkSelfie extends AppCompatActivity {
     private boolean mUserRequestedInstall = true;
     private Session mSession;
 
+    private ModelRenderable andyRenderable;
+    private static final String TAG = "LandmarkSelfie";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmark_selfie);
+
+
+        ModelRenderable.builder()
+                .setSource(this, R.raw.andy)
+                .build()
+                .thenAccept(renderable -> andyRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Log.e(TAG, "Unable to load Renderable.", throwable);
+                            return null;
+                        });
+
+
     }
 
     @Override
