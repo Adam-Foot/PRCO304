@@ -40,6 +40,7 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Nearby Locations");
         setContentView(R.layout.activity_nearby_locations_fragment);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
