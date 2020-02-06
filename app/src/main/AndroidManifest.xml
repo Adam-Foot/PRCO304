@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.sitewalks.SiteWalks"></activity>
+        <activity android:name=".ui.landmarkselfie.LandmarkSelfie"></activity>
+        <activity android:name=".ui.sitewalks.SiteWalks" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
