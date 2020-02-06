@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
 import com.example.prco.ui.googlemaps.NearbyLocationsFragment;
+import com.example.prco.ui.sitewalks.SiteWalks;
 
 public class HomeFragment extends Fragment {
 
@@ -25,11 +26,29 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         Button nearbylocations = root.findViewById(R.id.btnNearby);
+        Button sitewalks = root.findViewById(R.id.btnSiteWalk);
+        Button selfie = root.findViewById(R.id.btnSelfieLandmark);
+
         nearbylocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), NearbyLocationsFragment.class);
                 startActivityForResult(myIntent, 0);
+            }
+        });
+
+        sitewalks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent siteIntent = new Intent(v.getContext(), SiteWalks.class);
+                startActivityForResult(siteIntent, 0);
+            }
+        });
+
+        selfie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
