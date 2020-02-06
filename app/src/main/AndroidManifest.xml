@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.prco">
 
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.sitewalks.SiteWalks"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -28,7 +27,7 @@
 
         <activity
             android:name=".ui.googlemaps.NearbyLocationsFragment"
-            android:label="@string/title_activity_nearby_locations_fragment"></activity>
+            android:label="@string/title_activity_nearby_locations_fragment" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
