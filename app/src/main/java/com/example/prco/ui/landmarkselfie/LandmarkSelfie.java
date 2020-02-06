@@ -5,23 +5,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.prco.FaceArFragment;
 import com.example.prco.PermissionUtils;
 import com.example.prco.R;
 import com.google.ar.core.ArCoreApk;
+import com.google.ar.core.AugmentedFace;
 import com.google.ar.core.Session;
+import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
 import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.ar.sceneform.ArSceneView;
+import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.Node;
+import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.Renderable;
+import com.google.ar.sceneform.rendering.Texture;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.AugmentedFaceNode;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class LandmarkSelfie extends AppCompatActivity {
@@ -30,34 +47,85 @@ public class LandmarkSelfie extends AppCompatActivity {
     private Session mSession;
 
     private ModelRenderable andyRenderable;
+    private ModelRenderable faceRegionRenderable;
+    private Texture faceMeshTexture;
+
     private static final String TAG = "LandmarkSelfie";
 
     private ArFragment arFragment;
+    private FaceArFragment arFaceFragment;
+
+    private final HashMap<AugmentedFace, AugmentedFaceNode> faceNodeMap = new HashMap<>();
 
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
+    private static final double MIN_OPENGL_VERSION = 3.0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landmark_selfie);
 
-        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+        if (!checkIsSupportedDeviceOrFinish(this)) {
+            return;
+        }
 
+        arFaceFragment = (FaceArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
         ModelRenderable.builder()
-                .setSource(this, R.raw.andy)
+                .setSource(this, R.raw.fox_face)
                 .build()
-                .thenAccept(renderable -> andyRenderable = renderable)
-                .exceptionally(
-                        throwable -> {
-                            Log.e(TAG, "Unable to load Renderable.", throwable);
-                            return null;
+                .thenAccept(
+                        modelRenderable -> {
+                            faceRegionRenderable = modelRenderable;
+                            modelRenderable.setShadowCaster(false);
+                            modelRenderable.setShadowReceiver(false);
                         });
 
-        Node node = new Node();
-        node.setParent(arFragment.getArSceneView().getScene());
-        node.setRenderable(andyRenderable);
+        Texture.builder()
+                .setSource(this, R.drawable.fox_face_mesh_texture)
+                .build()
+                .thenAccept(texture -> faceMeshTexture = texture);
 
+        ArSceneView sceneView = arFragment.getArSceneView();
+        sceneView.setCameraStreamRenderPriority(Renderable.RENDER_PRIORITY_FIRST);
+
+        Scene scene = sceneView.getScene();
+
+        scene.addOnUpdateListener(
+                (FrameTime frameTime) -> {
+                    if (faceRegionRenderable == null || faceMeshTexture == null) {
+                        return;
+                    }
+
+                    Collection<AugmentedFace> faceList =
+                            sceneView.getSession().getAllTrackables(AugmentedFace.class);
+
+                    // Make new AugmentedFaceNodes for any new faces.
+                    for (AugmentedFace face : faceList) {
+                        if (!faceNodeMap.containsKey(face)) {
+                            AugmentedFaceNode faceNode = new AugmentedFaceNode(face);
+                            faceNode.setParent(scene);
+                            faceNode.setFaceRegionsRenderable(faceRegionRenderable);
+                            faceNode.setFaceMeshTexture(faceMeshTexture);
+                            faceNodeMap.put(face, faceNode);
+                        }
+                    }
+
+
+                    Iterator<Map.Entry<AugmentedFace, AugmentedFaceNode>> iter =
+                            faceNodeMap.entrySet().iterator();
+                    while (iter.hasNext()) {
+                        Map.Entry<AugmentedFace, AugmentedFaceNode> entry = iter.next();
+                        AugmentedFace face = entry.getKey();
+                        if (face.getTrackingState() == TrackingState.STOPPED) {
+                            AugmentedFaceNode faceNode = entry.getValue();
+                            faceNode.setParent(null);
+                            iter.remove();
+                        }
+                    }
+                });
     }
 
 
@@ -125,6 +193,28 @@ public class LandmarkSelfie extends AppCompatActivity {
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+
+    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
+        if (ArCoreApk.getInstance().checkAvailability(activity)
+                == ArCoreApk.Availability.UNSUPPORTED_DEVICE_NOT_CAPABLE) {
+            Log.e(TAG, "Augmented Faces requires ARCore.");
+            Toast.makeText(activity, "Augmented Faces requires ARCore", Toast.LENGTH_LONG).show();
+            activity.finish();
+            return false;
+        }
+        String openGlVersionString =
+                ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
+                        .getDeviceConfigurationInfo()
+                        .getGlEsVersion();
+        if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
+            Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
+            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+                    .show();
+            activity.finish();
+            return false;
+        }
+        return true;
     }
 }
 
