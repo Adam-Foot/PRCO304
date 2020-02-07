@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
+
     <TextView
         android:id="@+id/txtLoginText"
         android:layout_width="0dp"
@@ -19,7 +20,8 @@
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -39,6 +41,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtSiteName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/site_name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/txtSiteLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/site_lat"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/txtSiteLong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/site_long"
+                android:inputType="textPersonName" />
 
             <Button
                 android:id="@+id/btnAddSite"
@@ -77,6 +103,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/logout"
                 tools:visibility="gone" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="484dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
 

@@ -17,10 +17,18 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -34,8 +42,12 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     private Button mBtnLogout;
     private Button mBtnAddSite;
     private TextView mLoginText;
+    private EditText mSiteName;
+    private EditText mSiteLat;
+    private EditText mSiteLong;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +59,10 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         mEmailField = root.findViewById(R.id.txtEmail);
         mPasswordField = root.findViewById(R.id.txtPassword);
         mLoginText = root.findViewById(R.id.txtLoginText);
+        mSiteName = root.findViewById(R.id.txtSiteName);
+        mSiteLat = root.findViewById(R.id.txtSiteLat);
+        mSiteLong = root.findViewById(R.id.txtSiteLong);
+
         mBtnLogin = root.findViewById(R.id.btnLogin);
         mBtnLogout = root.findViewById(R.id.btnLogout);
         mBtnAddSite = root.findViewById(R.id.btnAddSite);
@@ -56,6 +72,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         mBtnAddSite.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
 
         return root;
 
@@ -127,6 +144,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mLoginText.setVisibility(View.GONE);
             mBtnLogout.setVisibility(View.VISIBLE);
             mBtnAddSite.setVisibility(View.VISIBLE);
+            mSiteName.setVisibility(View.VISIBLE);
+            mSiteLat.setVisibility(View.VISIBLE);
+            mSiteLong.setVisibility(View.VISIBLE);
         } else {
             mEmailField.setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
@@ -134,6 +154,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mLoginText.setVisibility(View.VISIBLE);
             mBtnLogout.setVisibility(View.GONE);
             mBtnAddSite.setVisibility(View.GONE);
+            mSiteName.setVisibility(View.GONE);
+            mSiteLat.setVisibility(View.GONE);
+            mSiteLong.setVisibility(View.GONE);
         }
     }
 
@@ -143,6 +166,31 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         } else if (i == R.id.btnLogout) {
             signOut();
+        } else if (i == R.id.btnAddSite) {
+            addNewSite();
         }
+    }
+
+    public void addNewSite() {
+        Map<String, Object> site = new HashMap<>();
+        site.put("site_name", mSiteName.getText().toString());
+        site.put("site_locationLat", mSiteLat.getText().toString());
+        site.put("site_locationLong", mSiteLong.getText().toString());
+
+        mFirestore.collection("sites")
+                .add(site)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Document added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document!", e);
+                    }
+                });
+
     }
 }
