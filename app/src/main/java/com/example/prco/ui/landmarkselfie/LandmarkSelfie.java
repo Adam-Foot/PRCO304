@@ -27,7 +27,6 @@ import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
-import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.Scene;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
@@ -46,14 +45,13 @@ public class LandmarkSelfie extends AppCompatActivity {
     private boolean mUserRequestedInstall = true;
     private Session mSession;
 
-    private ModelRenderable andyRenderable;
     private ModelRenderable faceRegionRenderable;
     private Texture faceMeshTexture;
 
-    private static final String TAG = "LandmarkSelfie";
+    private static final String TAG = LandmarkSelfie.class.getSimpleName();
 
-    private ArFragment arFragment;
     private FaceArFragment arFaceFragment;
+
 
     private final HashMap<AugmentedFace, AugmentedFaceNode> faceNodeMap = new HashMap<>();
 
@@ -64,15 +62,17 @@ public class LandmarkSelfie extends AppCompatActivity {
 
 
     @Override
+    @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landmark_selfie);
 
         if (!checkIsSupportedDeviceOrFinish(this)) {
             return;
         }
 
+        setContentView(R.layout.activity_landmark_selfie);
         arFaceFragment = (FaceArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+
         ModelRenderable.builder()
                 .setSource(this, R.raw.fox_face)
                 .build()
@@ -88,7 +88,7 @@ public class LandmarkSelfie extends AppCompatActivity {
                 .build()
                 .thenAccept(texture -> faceMeshTexture = texture);
 
-        ArSceneView sceneView = arFragment.getArSceneView();
+        ArSceneView sceneView = arFaceFragment.getArSceneView();
         sceneView.setCameraStreamRenderPriority(Renderable.RENDER_PRIORITY_FIRST);
 
         Scene scene = sceneView.getScene();
