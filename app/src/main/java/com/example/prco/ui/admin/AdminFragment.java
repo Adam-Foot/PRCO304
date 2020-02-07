@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     private EditText mPasswordField;
     private Button mBtnLogin;
     private Button mBtnLogout;
+    private Button mBtnAddSite;
+    private TextView mLoginText;
 
     private FirebaseAuth mAuth;
 
@@ -43,11 +46,14 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
 
         mEmailField = root.findViewById(R.id.txtEmail);
         mPasswordField = root.findViewById(R.id.txtPassword);
+        mLoginText = root.findViewById(R.id.txtLoginText);
         mBtnLogin = root.findViewById(R.id.btnLogin);
         mBtnLogout = root.findViewById(R.id.btnLogout);
+        mBtnAddSite = root.findViewById(R.id.btnAddSite);
 
         mBtnLogin.setOnClickListener(this);
         mBtnLogout.setOnClickListener(this);
+        mBtnAddSite.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -118,12 +124,16 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mEmailField.setVisibility(View.GONE);
             mPasswordField.setVisibility(View.GONE);
             mBtnLogin.setVisibility(View.GONE);
+            mLoginText.setVisibility(View.GONE);
             mBtnLogout.setVisibility(View.VISIBLE);
+            mBtnAddSite.setVisibility(View.VISIBLE);
         } else {
             mEmailField.setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
             mBtnLogin.setVisibility(View.VISIBLE);
+            mLoginText.setVisibility(View.VISIBLE);
             mBtnLogout.setVisibility(View.GONE);
+            mBtnAddSite.setVisibility(View.GONE);
         }
     }
 
