@@ -36,4 +36,33 @@
     <string name="site_name">Site Name</string>
     <string name="site_lat">Latitude</string>
     <string name="site_long">Longitude</string>
+
+    <string name="using_this_app_title">How to use this App</string>
+    <string name="gps_services">Location Services</string>
+    <string name="gps_services_desc">This app uses GPS to determine your current location and helps
+        locate nearby sites that are supported. To allow Location Services navigate to Settings and
+        ensure the Location Permissions toggle is switched on (green). Location Services will be
+    required to view your location on any maps that are implemented throughout the app. The Nearby
+    Locations tab will order the sites from nearest to your current location as well.</string>
+
+    <string name="camera_services">Camera</string>
+    <string name="camera_services_desc">This app also uses your front and rear cameras. To allow
+    camera permissions navigate to Settings and turn on the Camera Permissions toggle. The camera is
+    used throughout the application to view 3D models and popups using Augmented Reality. You will
+    not be able to see or use these features if it does not have access to the camera.</string>
+
+    <string name="android_version">Android Version</string>
+    <string name="android_version_desc">To ensure that the Augmented Reality features of the app
+    work, you must be using an Android device that is running Android Version 7.0 or higher. This
+    can also be referred to as Android Nougat. To check if you are running the required software
+    version, navigate to the Settings app on your phone. Click on System >> About and then look for
+    "Android version". It should display a number. If it is 7 or above then your phone can support
+    Augmented Reality.</string>
+
+    <string name="phone_supported">AR Core Supported Phones</string>
+    <string name="phone_supported_desc">To ensure your phone supports AR Core (for Augmented
+    Reality), please check the following list for your phone >>
+    https://developers.google.com/ar/discover/supported-devices. The app should recognise and inform
+    you automatically if your phone is not supported, but just in-case you want to check manually
+    you may do so here.</string>
 </resources>
