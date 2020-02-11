@@ -85,7 +85,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/activity_horizontal_margin"
-                android:text="@string/phone_supported_desc" />
+                android:text="@string/phone_supported_desc"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_updates"
+                android:paddingBottom="6dp"
+                android:textColor="#8BC34A"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
+                android:text="@string/app_updates_desc"/>
 
         </LinearLayout>
 

@@ -65,4 +65,9 @@
     https://developers.google.com/ar/discover/supported-devices. The app should recognise and inform
     you automatically if your phone is not supported, but just in-case you want to check manually
     you may do so here.</string>
+
+    <string name="app_updates">App Updates</string>
+    <string name="app_updates_desc">When an update is available for this app the content will be
+    downloaded when the device has an active internet connection. To ensure you have the latest
+    content available, try to connect your device to the internet when you plan to use it.</string>
 </resources>
