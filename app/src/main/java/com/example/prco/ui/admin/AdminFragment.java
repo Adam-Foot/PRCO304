@@ -45,6 +45,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     private EditText mSiteName;
     private EditText mSiteLat;
     private EditText mSiteLong;
+    private TextView mDbData;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
@@ -66,6 +67,8 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         mBtnLogin = root.findViewById(R.id.btnLogin);
         mBtnLogout = root.findViewById(R.id.btnLogout);
         mBtnAddSite = root.findViewById(R.id.btnAddSite);
+
+        mDbData = root.findViewById(R.id.txtDbData);
 
         mBtnLogin.setOnClickListener(this);
         mBtnLogout.setOnClickListener(this);
@@ -147,6 +150,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mSiteName.setVisibility(View.VISIBLE);
             mSiteLat.setVisibility(View.VISIBLE);
             mSiteLong.setVisibility(View.VISIBLE);
+            mDbData.setVisibility(View.VISIBLE);
         } else {
             mEmailField.setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
@@ -157,6 +161,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mSiteName.setVisibility(View.GONE);
             mSiteLat.setVisibility(View.GONE);
             mSiteLong.setVisibility(View.GONE);
+            mDbData.setVisibility(View.GONE);
         }
     }
 
