@@ -13,16 +13,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SitesFragment extends Fragment {
 
     private SitesViewModel sitesViewModel;
+
+    private static final String TAG = "SitesActivity";
+
+    private FirebaseFirestore mFirestore;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         sitesViewModel =
                 ViewModelProviders.of(this).get(SitesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
+
+
+        mFirestore = FirebaseFirestore.getInstance();
+
 
         return root;
     }
