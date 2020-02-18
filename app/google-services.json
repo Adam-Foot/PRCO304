@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "70483281774-fvqqo9kuoiveem4i0l14gr61igteddst.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prco",
+            "certificate_hash": "c088d24718f1471d2144bfda02c45cfb127d017f"
+          }
+        },
+        {
           "client_id": "70483281774-1pg2me45jkq2q0cap93585mv19m814oa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
