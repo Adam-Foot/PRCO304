@@ -18,6 +18,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.w3c.dom.Text;
+
 
 public class SitesFragment extends Fragment {
 
@@ -51,8 +53,7 @@ public class SitesFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull SitesViewHolder sitesViewHolder, int i, @NonNull Sites sites) {
                 sitesViewHolder.list_name.setText(sites.getSite_name());
-                sitesViewHolder.list_lat.setText(sites.getSite_locationLat());
-                sitesViewHolder.list_long.setText(sites.getSite_locationLong());
+                sitesViewHolder.list_desc.setText(sites.getSite_desc());
             }
         };
 
@@ -67,15 +68,13 @@ public class SitesFragment extends Fragment {
     private class SitesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView list_name;
-        private TextView list_lat;
-        private TextView list_long;
+        private TextView list_desc;
 
         public SitesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             list_name = itemView.findViewById(R.id.txtSiteListName);
-            list_lat = itemView.findViewById(R.id.txtSiteLat);
-            list_long = itemView.findViewById(R.id.txtSiteLong);
+            list_desc = itemView.findViewById(R.id.txtSiteDesc);
 
         }
     }
