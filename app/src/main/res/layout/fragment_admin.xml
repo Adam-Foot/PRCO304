@@ -51,6 +51,14 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:id="@+id/txtSiteDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/site_desc"
+                android:inputType="textPersonName" />
+
+            <EditText
                 android:id="@+id/txtSiteLat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,24 +111,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/logout"
                 tools:visibility="gone" />
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="484dp"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/txtDbData"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
 

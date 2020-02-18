@@ -34,6 +34,7 @@
 
     <string name="add_site">Add New Site</string>
     <string name="site_name">Site Name</string>
+    <string name="site_desc">Site Description</string>
     <string name="site_lat">Latitude</string>
     <string name="site_long">Longitude</string>
 
