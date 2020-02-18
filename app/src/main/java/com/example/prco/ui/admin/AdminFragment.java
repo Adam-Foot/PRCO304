@@ -43,9 +43,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     private Button mBtnAddSite;
     private TextView mLoginText;
     private EditText mSiteName;
+    private EditText mSiteDesc;
     private EditText mSiteLat;
     private EditText mSiteLong;
-    private TextView mDbData;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
@@ -61,14 +61,13 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         mPasswordField = root.findViewById(R.id.txtPassword);
         mLoginText = root.findViewById(R.id.txtLoginText);
         mSiteName = root.findViewById(R.id.txtSiteName);
+        mSiteDesc = root.findViewById(R.id.txtSiteDesc);
         mSiteLat = root.findViewById(R.id.txtSiteLat);
         mSiteLong = root.findViewById(R.id.txtSiteLong);
 
         mBtnLogin = root.findViewById(R.id.btnLogin);
         mBtnLogout = root.findViewById(R.id.btnLogout);
         mBtnAddSite = root.findViewById(R.id.btnAddSite);
-
-        mDbData = root.findViewById(R.id.txtDbData);
 
         mBtnLogin.setOnClickListener(this);
         mBtnLogout.setOnClickListener(this);
@@ -148,9 +147,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mBtnLogout.setVisibility(View.VISIBLE);
             mBtnAddSite.setVisibility(View.VISIBLE);
             mSiteName.setVisibility(View.VISIBLE);
+            mSiteDesc.setVisibility(View.VISIBLE);
             mSiteLat.setVisibility(View.VISIBLE);
             mSiteLong.setVisibility(View.VISIBLE);
-            mDbData.setVisibility(View.VISIBLE);
         } else {
             mEmailField.setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
@@ -159,9 +158,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
             mBtnLogout.setVisibility(View.GONE);
             mBtnAddSite.setVisibility(View.GONE);
             mSiteName.setVisibility(View.GONE);
+            mSiteDesc.setVisibility(View.GONE);
             mSiteLat.setVisibility(View.GONE);
             mSiteLong.setVisibility(View.GONE);
-            mDbData.setVisibility(View.GONE);
         }
     }
 
@@ -179,6 +178,7 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     public void addNewSite() {
         Map<String, Object> site = new HashMap<>();
         site.put("site_name", mSiteName.getText().toString());
+        site.put("site_desc", mSiteDesc.getText().toString());
         site.put("site_locationLat", mSiteLat.getText().toString());
         site.put("site_locationLong", mSiteLong.getText().toString());
 
