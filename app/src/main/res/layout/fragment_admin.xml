@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/site_lat"
-                android:inputType="textPersonName" />
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/txtSiteLong"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/site_long"
-                android:inputType="textPersonName" />
+                android:inputType="numberDecimal" />
 
             <Button
                 android:id="@+id/btnAddSite"

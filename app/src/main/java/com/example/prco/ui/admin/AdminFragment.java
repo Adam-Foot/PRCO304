@@ -179,8 +179,8 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         Map<String, Object> site = new HashMap<>();
         site.put("site_name", mSiteName.getText().toString());
         site.put("site_desc", mSiteDesc.getText().toString());
-        site.put("site_locationLat", mSiteLat.getText().toString());
-        site.put("site_locationLong", mSiteLong.getText().toString());
+        site.put("site_locationLat", mSiteLat.getText());
+        site.put("site_locationLong", mSiteLong.getText());
 
         mFirestore.collection("sites")
                 .add(site)
