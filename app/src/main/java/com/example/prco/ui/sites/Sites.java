@@ -2,11 +2,12 @@ package com.example.prco.ui.sites;
 
 public class Sites {
 
-    private String site_name, site_locationLat, site_locationLong, site_desc;
+    private String site_name, site_desc;
+    private Double site_locationLat, site_locationLong;
 
     public Sites() {}
 
-    public Sites(String site_name, String site_locationLat, String site_locationLong, String site_desc) {
+    public Sites(String site_name, Double site_locationLat, Double site_locationLong, String site_desc) {
         this.site_name = site_name;
         this.site_locationLat = site_locationLat;
         this.site_locationLong = site_locationLong;
@@ -21,19 +22,19 @@ public class Sites {
         this.site_name = site_name;
     }
 
-    public String getSite_locationLat() {
+    public Double getSite_locationLat() {
         return site_locationLat;
     }
 
-    public void setSite_locationLat(String site_locationLat) {
+    public void setSite_locationLat(Double site_locationLat) {
         this.site_locationLat = site_locationLat;
     }
 
-    public String getSite_locationLong() {
+    public Double getSite_locationLong() {
         return site_locationLong;
     }
 
-    public void setSite_locationLong(String site_locationLong) {
+    public void setSite_locationLong(Double site_locationLong) {
         this.site_locationLong = site_locationLong;
     }
 
