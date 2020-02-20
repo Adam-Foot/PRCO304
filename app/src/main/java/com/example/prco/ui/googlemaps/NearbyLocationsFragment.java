@@ -9,17 +9,25 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 
 import com.example.prco.PermissionUtils;
 import com.example.prco.R;
 import com.example.prco.ui.sites.Sites;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -36,10 +44,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class NearbyLocationsFragment extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
+
     private static final String TAG = NearbyLocationsFragment.class.getSimpleName();
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -47,7 +57,9 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
 
     private FirebaseFirestore mFirestore;
 
-    public Sites sites;
+    LocationRequest mLocationRequest;
+    Location mLocation;
+    FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +67,54 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         setTitle("Nearby Locations");
         setContentView(R.layout.activity_nearby_locations_fragment);
 
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        mFirestore = FirebaseFirestore.getInstance();
-        CollectionReference collection = mFirestore.collection("sites");
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mFusedLocationClient != null) {
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        }
+    }
+
+    LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            List<Location> locationList = locationResult.getLocations();
+            if (locationList.size() > 0) {
+                //The last location in the list is the newest
+                Location location = locationList.get(locationList.size() - 1);
+                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
+                mLocation = location;
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                //move map camera
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+            }
+        }
+    };
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        LatLng pos = new LatLng(50.376289, -4.143841);
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(60000); // one minute interval
+        mLocationRequest.setFastestInterval(60000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+//        LatLng pos = new LatLng(50.376289, -4.143841);
 
         enableMyLocation();
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -78,6 +123,7 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             mMap.setMyLocationEnabled(true);
         }
 
@@ -112,9 +158,10 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
                 });
 
 
-        // Position the map's camera over Plymouth
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 13);
-        mMap.animateCamera(cameraUpdate);
+
+//        // Position the map's camera over Plymouth
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 13);
+//        mMap.animateCamera(cameraUpdate);
     }
 
 
@@ -144,6 +191,7 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         } else {
             mPermissionDenied = true;
         }
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
     }
 
     @Override
