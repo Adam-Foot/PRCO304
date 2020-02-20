@@ -1,24 +1,20 @@
 package com.example.prco.ui.googlemaps;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Location;
-import android.location.LocationListener;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.prco.PermissionUtils;
 import com.example.prco.R;
-import com.google.android.gms.common.api.GoogleApi;
+import com.example.prco.ui.sites.Sites;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +23,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.events.Event;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Collection;
+import java.util.HashMap;
 
 public class NearbyLocationsFragment extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -36,6 +44,10 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean mPermissionDenied = false;
+
+    private FirebaseFirestore mFirestore;
+
+    public Sites sites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,9 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mFirestore = FirebaseFirestore.getInstance();
+        CollectionReference collection = mFirestore.collection("sites");
 
     }
 
@@ -77,6 +92,25 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
+
+
+        mFirestore.collection("sites")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Double latitude = new Double(document.getDouble("site_locationLat"));
+                                Double longitude = new Double(document.getDouble("site_locationLong"));
+                                String sitename = document.getString("site_name");
+                                MarkerOptions options = new MarkerOptions().position(new LatLng(latitude, longitude)).title(sitename);
+                                mMap.addMarker(options);
+                            }
+                        }
+                    }
+                });
+
 
         // Position the map's camera over Plymouth
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 13);
