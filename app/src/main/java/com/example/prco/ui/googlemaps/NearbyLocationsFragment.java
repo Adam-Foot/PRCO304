@@ -114,8 +114,6 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
         mLocationRequest.setFastestInterval(60000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-//        LatLng pos = new LatLng(50.376289, -4.143841);
-
         enableMyLocation();
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(true);
@@ -156,12 +154,6 @@ public class NearbyLocationsFragment extends AppCompatActivity implements OnMapR
                         }
                     }
                 });
-
-
-
-//        // Position the map's camera over Plymouth
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 13);
-//        mMap.animateCamera(cameraUpdate);
     }
 
 
