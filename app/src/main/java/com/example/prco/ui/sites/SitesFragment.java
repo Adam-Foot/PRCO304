@@ -66,6 +66,13 @@ public class SitesFragment extends Fragment {
                         }
                     }
                 });
+                sitesViewHolder.website.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(sites.getSite_url()));
+                        startActivity(browserIntent);
+                    }
+                });
             }
         };
 
@@ -82,6 +89,7 @@ public class SitesFragment extends Fragment {
         private TextView list_name;
         private TextView list_desc;
         private ImageView direction;
+        private ImageView website;
 
         public SitesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +97,7 @@ public class SitesFragment extends Fragment {
             list_name = itemView.findViewById(R.id.txtSiteListName);
             list_desc = itemView.findViewById(R.id.txtSiteDesc);
             direction = itemView.findViewById(R.id.imgDirection);
+            website = itemView.findViewById(R.id.imgWebsite);
 
         }
     }
