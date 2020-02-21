@@ -23,9 +23,11 @@
         android:id="@+id/imgDirection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_directions" />
+        app:srcCompat="@drawable/car" />
 
     <TextView
         android:id="@+id/txtSiteDesc"
@@ -50,8 +52,10 @@
         android:id="@+id/imgWebsite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="28dp"
         app:layout_constraintEnd_toStartOf="@+id/imgDirection"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        app:srcCompat="@drawable/web" />
 </androidx.constraintlayout.widget.ConstraintLayout>
