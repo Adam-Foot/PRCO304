@@ -20,28 +20,13 @@
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_sites"
             android:title="@string/menu_sites" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_admin"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/admin_login" />
     </group>
-
-    <item android:title="@string/menu_split">
-        <menu>
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_settings" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
-        </menu>
-    </item>
-
-    <item android:title="@string/menu_admin">
-        <menu>
-            <item
-                android:id="@+id/nav_admin"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/admin_login" />
-        </menu>
-    </item>
-
 </menu>
