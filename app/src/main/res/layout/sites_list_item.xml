@@ -45,4 +45,13 @@
         android:background="@color/colorPrimaryDark"
         app:layout_constraintTop_toBottomOf="@+id/txtSiteDesc"
         tools:layout_editor_absoluteX="16dp" />
+
+    <ImageView
+        android:id="@+id/imgWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgDirection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>
