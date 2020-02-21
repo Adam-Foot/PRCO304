@@ -38,6 +38,7 @@
     <string name="site_desc">Site Description</string>
     <string name="site_lat">Latitude</string>
     <string name="site_long">Longitude</string>
+    <string name="site_url">Site Website URL</string>
 
     <string name="using_this_app_title">How to use this App</string>
     <string name="gps_services">Location Services</string>

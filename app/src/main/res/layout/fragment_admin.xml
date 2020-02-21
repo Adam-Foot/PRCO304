@@ -74,6 +74,14 @@
                 android:hint="@string/site_long"
                 android:inputType="numberDecimal" />
 
+            <EditText
+                android:id="@+id/txtSiteUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/site_url"
+                android:inputType="textUri" />
+
             <Button
                 android:id="@+id/btnAddSite"
                 android:layout_width="match_parent"
