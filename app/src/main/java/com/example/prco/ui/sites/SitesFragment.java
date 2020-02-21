@@ -34,7 +34,7 @@ public class SitesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         sitesViewModel =
                 ViewModelProviders.of(this).get(SitesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
+        View root = inflater.inflate(R.layout.fragment_sites, container, false);
 
         mFirestore = FirebaseFirestore.getInstance();
         mSiteData = root.findViewById(R.id.recycler_view);

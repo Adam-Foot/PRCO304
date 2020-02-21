@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.prco.R;
@@ -22,7 +19,7 @@ public class UsingAppFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         usingAppViewModel =
                 ViewModelProviders.of(this).get(UsingAppViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_usingapp, container, false);
 
         return root;
     }
