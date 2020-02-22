@@ -259,7 +259,9 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
                     });
         }
 
+        String name_of_site = mSiteName.getText().toString();
         clearForm();
+        Toast.makeText(getActivity(), name_of_site + " added!", Toast.LENGTH_SHORT).show();
 
     }
 
