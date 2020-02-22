@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_camera"
+        android:id="@+id/nav_arcamera"
         android:name="com.example.prco.ui.arcamera.ArFragment"
         android:label="@string/menu_camera"
         tools:layout="@layout/fragment_camera" />

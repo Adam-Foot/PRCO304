@@ -15,7 +15,8 @@ public class ArFragment extends Fragment {
 
     private CameraViewModel cameraViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
         cameraViewModel =
                 ViewModelProviders.of(this).get(CameraViewModel.class);
