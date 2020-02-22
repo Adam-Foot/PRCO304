@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -71,9 +72,15 @@ public class SitesFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         String url = sites.getSite_url();
-                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                        CustomTabsIntent customTabsIntent = builder.build();
-                        customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
+
+                        if (url.equals("")) {
+                            Toast toast = Toast.makeText(getActivity(), "No website has been added for this site! Please choose a different one.", Toast.LENGTH_LONG);
+                            toast.show();
+                        } else {
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
+                        }
                     }
                 });
             }
