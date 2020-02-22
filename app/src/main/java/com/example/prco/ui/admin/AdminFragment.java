@@ -180,27 +180,54 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     }
 
     public void addNewSite() {
-        Map<String, Object> site = new HashMap<>();
-        site.put("site_name", mSiteName.getText().toString());
-        site.put("site_desc", mSiteDesc.getText().toString());
-        site.put("site_locationLat", Double.parseDouble(mSiteLat.getText().toString()));
-        site.put("site_locationLong", Double.parseDouble(mSiteLong.getText().toString()));
-        site.put("site_url", mSiteUrl.getText().toString());
+        if (mSiteUrl.getText().toString().startsWith("www.")) {
+            String urlEdit = "https://" + mSiteUrl.getText().toString();
 
-        mFirestore.collection("sites")
-                .add(site)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "Document added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document!", e);
-                    }
-                });
+            Map<String, Object> site = new HashMap<>();
+            site.put("site_name", mSiteName.getText().toString());
+            site.put("site_desc", mSiteDesc.getText().toString());
+            site.put("site_locationLat", Double.parseDouble(mSiteLat.getText().toString()));
+            site.put("site_locationLong", Double.parseDouble(mSiteLong.getText().toString()));
+            site.put("site_url", urlEdit);
 
+            mFirestore.collection("sites")
+                    .add(site)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "Document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document!", e);
+                        }
+                    });
+        } else {
+            String urlEdit = mSiteUrl.getText().toString();
+
+            Map<String, Object> site = new HashMap<>();
+            site.put("site_name", mSiteName.getText().toString());
+            site.put("site_desc", mSiteDesc.getText().toString());
+            site.put("site_locationLat", Double.parseDouble(mSiteLat.getText().toString()));
+            site.put("site_locationLong", Double.parseDouble(mSiteLong.getText().toString()));
+            site.put("site_url", urlEdit);
+
+            mFirestore.collection("sites")
+                    .add(site)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "Document added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document!", e);
+                        }
+                    });
+        }
     }
 }
