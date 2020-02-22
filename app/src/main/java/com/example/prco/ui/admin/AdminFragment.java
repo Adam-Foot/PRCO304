@@ -259,5 +259,25 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
                     });
         }
 
+        clearForm();
+
+    }
+
+    private void clearForm() {
+        if (mSiteName.getText() != null) {
+            mSiteName.setText("");
+        }
+        if (mSiteDesc.getText() != null) {
+            mSiteDesc.setText("");
+        }
+        if (mSiteLat.getText() != null) {
+            mSiteLat.setText("");
+        }
+        if (mSiteLong.getText() != null) {
+            mSiteLong.setText("");
+        }
+        if (mSiteUrl.getText() != null) {
+            mSiteUrl.setText("");
+        }
     }
 }
