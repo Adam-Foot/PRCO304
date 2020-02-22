@@ -76,6 +76,9 @@ public class SitesFragment extends Fragment {
                         if (url.equals("")) {
                             Toast toast = Toast.makeText(getActivity(), "No website has been added for this site! Please choose a different one.", Toast.LENGTH_LONG);
                             toast.show();
+                        } else if (url.startsWith("www.")){
+                            Toast toast = Toast.makeText(getActivity(), "The website URL for this site is invalid. Please contact the app developer.", Toast.LENGTH_LONG);
+                            toast.show();
                         } else {
                             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                             CustomTabsIntent customTabsIntent = builder.build();
