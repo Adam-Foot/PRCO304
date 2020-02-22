@@ -13,6 +13,7 @@
     <string name="menu_share">Share App</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_admin">Admin Panel</string>
+    <string name="menu_camera">AR Camera</string>
     <string name="title_activity_nearby_locations_fragment">Map</string>
 
     <string name="nearby_locations">See Nearby Locations</string>
@@ -24,7 +25,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
-    <string name="admin_login">Admin Login</string>
+    <string name="admin_login">Admin Panel</string>
     <string name="password_forget">Forgotten your password?</string>
 
     <string name="adminText">Please login below. If you do not have an Admin account you cannot login.</string>
