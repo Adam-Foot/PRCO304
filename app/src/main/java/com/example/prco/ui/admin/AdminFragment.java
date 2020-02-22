@@ -140,6 +140,31 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
         return valid;
     }
 
+    private boolean validateDataEntry() {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(mSiteName.getText().toString())) {
+            mSiteName.setError("Site name is required!");
+            valid = false;
+        } else if (TextUtils.isEmpty(mSiteDesc.getText().toString())) {
+            mSiteDesc.setError("Please enter a site description!");
+            valid = false;
+        } else if (TextUtils.isEmpty(mSiteLat.getText().toString())) {
+            mSiteLat.setError("Latitude co-ordinates are required!");
+            valid = false;
+        } else if (TextUtils.isEmpty(mSiteLong.getText().toString())) {
+            mSiteLong.setError("Longitude co-ordinates are required!");
+            valid = false;
+        } else {
+            mSiteName.setError(null);
+            mSiteDesc.setError(null);
+            mSiteLat.setError(null);
+            mSiteLong.setError(null);
+        }
+
+        return valid;
+    }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             mEmailField.setVisibility(View.GONE);
@@ -180,6 +205,10 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
     }
 
     public void addNewSite() {
+        if (!validateDataEntry()) {
+            return;
+        }
+
         if (mSiteUrl.getText().toString().startsWith("www.")) {
             String urlEdit = "https://" + mSiteUrl.getText().toString();
 
@@ -229,5 +258,6 @@ public class AdminFragment extends Fragment implements View.OnClickListener {
                         }
                     });
         }
+
     }
 }
