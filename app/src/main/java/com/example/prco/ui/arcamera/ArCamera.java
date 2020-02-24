@@ -55,6 +55,8 @@ public class ArCamera extends AppCompatActivity {
 
         arSceneView = arFragment.getArSceneView();
 
+
+
     }
 
     private boolean setupAugmentedImageDatabase(Config config) {
@@ -69,6 +71,7 @@ public class ArCamera extends AppCompatActivity {
         augmentedImageDatabase.addImage("statue", augmentedImageBitmap);
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
+        config.setFocusMode(Config.FocusMode.AUTO);
         return true;
     }
 
