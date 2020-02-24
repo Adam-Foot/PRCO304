@@ -11,8 +11,7 @@
         <item
             android:id="@+id/nav_arcamera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_camera"
-            />
+            android:title="@string/menu_camera" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_usingapp"

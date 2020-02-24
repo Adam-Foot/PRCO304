@@ -19,6 +19,7 @@
 
         <activity android:name=".ui.landmarkselfie.LandmarkSelfie" android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.sitewalks.SiteWalks" />
+        <activity android:name=".ui.arcamera.ArCamera" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
