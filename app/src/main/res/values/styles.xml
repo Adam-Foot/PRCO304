@@ -20,7 +20,7 @@
 
     <style name="button_style">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:borderlessButtonStyle"></item>
+<!--        <item name="android:borderlessButtonStyle"></item>-->
     </style>
 
 </resources>
