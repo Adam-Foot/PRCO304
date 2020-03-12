@@ -57,8 +57,6 @@ public class ArCamera extends AppCompatActivity {
 
         arSceneView = arFragment.getArSceneView();
 
-
-
     }
 
     private boolean setupAugmentedImageDatabase(Config config) {
