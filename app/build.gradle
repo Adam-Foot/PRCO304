@@ -4,6 +4,7 @@ apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 29
+    ndkVersion "21.0.6113669"
     defaultConfig {
         applicationId "com.example.prco"
         minSdkVersion 24
