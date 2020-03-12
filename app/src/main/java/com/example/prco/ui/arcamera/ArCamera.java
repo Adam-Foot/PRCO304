@@ -24,6 +24,8 @@ import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
+import com.google.ar.sceneform.animation.ModelAnimator;
+import com.google.ar.sceneform.rendering.AnimationData;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -112,6 +114,13 @@ public class ArCamera extends AppCompatActivity {
                     dialog.show();
                     return null;
                 }));
+
+        // Animation Data for Andy OBJ. To be tested when Google update their Sceneform Plugin.
+//        AnimationData danceData = modelRenderable.getAnimationData("andy_dance");
+//        danceData.getName();
+//        ModelAnimator andyAnimator = new ModelAnimator(danceData, modelRenderable);
+//        andyAnimator.start();
+//        andyAnimator.setRepeatCount(50);
     }
 
     private void addNodeToScene(ArFragment fragment, Anchor anchor, Renderable renderable){
