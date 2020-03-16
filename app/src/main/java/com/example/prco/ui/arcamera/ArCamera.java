@@ -68,7 +68,7 @@ public class ArCamera extends AppCompatActivity {
         }
 
         augmentedImageDatabase = new AugmentedImageDatabase(mSession);
-        augmentedImageDatabase.addImage("logo", augmentedImageBitmap);
+        augmentedImageDatabase.addImage("logo1", augmentedImageBitmap);
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         config.setFocusMode(Config.FocusMode.AUTO);
@@ -76,7 +76,7 @@ public class ArCamera extends AppCompatActivity {
     }
 
     private Bitmap loadAugmentedImage() {
-        try (InputStream is = getAssets().open("logo.png")) {
+        try (InputStream is = getAssets().open("logo1.png")) {
             return BitmapFactory.decodeStream(is);
         } catch (IOException e) {
             Log.e(TAG, "IO Exception!", e);
@@ -91,7 +91,7 @@ public class ArCamera extends AppCompatActivity {
 
         for (AugmentedImage augmentedImage : augmentedImages) {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                if (augmentedImage.getName().contains("logo") && !modelAdded) {
+                if (augmentedImage.getName().contains("logo1") && !modelAdded) {
                     renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.raw.andy);
                     modelAdded = true;
                 }
@@ -116,6 +116,7 @@ public class ArCamera extends AppCompatActivity {
 //         Animation Data for Andy OBJ. To be tested when Google update their Sceneform Plugin.
 //        AnimationData danceData = modelRenderable.getAnimationData("andy_dance");
 //        danceData.getName();
+//        danceData = modelRenderable.getAnimationData(0);
 //        ModelAnimator andyAnimator = new ModelAnimator(danceData, modelRenderable);
 //        andyAnimator.start();
 //        andyAnimator.setRepeatCount(50);
