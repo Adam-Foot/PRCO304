@@ -68,7 +68,7 @@ public class ArCamera extends AppCompatActivity {
         }
 
         augmentedImageDatabase = new AugmentedImageDatabase(mSession);
-        augmentedImageDatabase.addImage("statue", augmentedImageBitmap);
+        augmentedImageDatabase.addImage("logo", augmentedImageBitmap);
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         config.setFocusMode(Config.FocusMode.AUTO);
@@ -76,7 +76,7 @@ public class ArCamera extends AppCompatActivity {
     }
 
     private Bitmap loadAugmentedImage() {
-        try (InputStream is = getAssets().open("statue.jpg")) {
+        try (InputStream is = getAssets().open("logo.png")) {
             return BitmapFactory.decodeStream(is);
         } catch (IOException e) {
             Log.e(TAG, "IO Exception!", e);
@@ -91,8 +91,8 @@ public class ArCamera extends AppCompatActivity {
 
         for (AugmentedImage augmentedImage : augmentedImages) {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                if (augmentedImage.getName().contains("statue") && !modelAdded) {
-                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.raw.car);
+                if (augmentedImage.getName().contains("logo") && !modelAdded) {
+                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.raw.andy);
                     modelAdded = true;
                 }
             }
@@ -113,12 +113,12 @@ public class ArCamera extends AppCompatActivity {
                     return null;
                 }));
 
-        // Animation Data for Andy OBJ. To be tested when Google update their Sceneform Plugin.
-//        AnimationData danceData = modelRenderable.getAnimationData("andy_dance");
-//        danceData.getName();
-//        ModelAnimator andyAnimator = new ModelAnimator(danceData, modelRenderable);
-//        andyAnimator.start();
-//        andyAnimator.setRepeatCount(50);
+//         Animation Data for Andy OBJ. To be tested when Google update their Sceneform Plugin.
+        AnimationData danceData = modelRenderable.getAnimationData("andy_dance");
+        danceData.getName();
+        ModelAnimator andyAnimator = new ModelAnimator(danceData, modelRenderable);
+        andyAnimator.start();
+        andyAnimator.setRepeatCount(50);
     }
 
     private void addNodeToScene(ArFragment fragment, Anchor anchor, Renderable renderable){
