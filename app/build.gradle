@@ -65,15 +65,9 @@ sceneform.asset('sampledata/fox_face.fbx',
 sceneform.asset('sampledata/models/car.obj',
         'default',
         'sampledata/models/car.sfa',
-        'src/main/assets/car')
-
-sceneform.asset('sampledata/models/car.obj',
-        'default',
-        'sampledata/models/car.sfa',
         'src/main/res/raw/car')
 
 sceneform.asset('sampledata/models/andy.obj',
         'default',
         'sampledata/models/andy.sfa',
-        'src/main/raw/andy',
-        ['sampledata/models/andy_dance.fbx'])
+        'src/main/res/raw/andy')
