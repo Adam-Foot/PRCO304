@@ -24,12 +24,15 @@ import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
-import com.google.ar.sceneform.animation.ModelAnimator;
+import com.google.ar.sceneform.math.Quaternion;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.AnimationData;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.Renderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.common.collect.Sets;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +71,7 @@ public class ArCamera extends AppCompatActivity {
         }
 
         augmentedImageDatabase = new AugmentedImageDatabase(mSession);
-        augmentedImageDatabase.addImage("logo1", augmentedImageBitmap);
+        augmentedImageDatabase.addImage("logoGrey", augmentedImageBitmap);
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         config.setFocusMode(Config.FocusMode.AUTO);
@@ -76,7 +79,7 @@ public class ArCamera extends AppCompatActivity {
     }
 
     private Bitmap loadAugmentedImage() {
-        try (InputStream is = getAssets().open("logo1.png")) {
+        try (InputStream is = getAssets().open("logoGrey.png")) {
             return BitmapFactory.decodeStream(is);
         } catch (IOException e) {
             Log.e(TAG, "IO Exception!", e);
@@ -91,8 +94,8 @@ public class ArCamera extends AppCompatActivity {
 
         for (AugmentedImage augmentedImage : augmentedImages) {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                if (augmentedImage.getName().contains("logo1") && !modelAdded) {
-                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.raw.andy);
+                if (augmentedImage.getName().contains("logoGrey") && !modelAdded) {
+                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.ar_test);
                     modelAdded = true;
                 }
             }
@@ -100,33 +103,30 @@ public class ArCamera extends AppCompatActivity {
     }
 
     private void renderObject(ArFragment fragment, Anchor anchor, int model) {
-        ModelRenderable.builder()
-                .setSource(this, model)
-                .build()
-                .thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable))
-                .exceptionally((throwable -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(throwable.getMessage())
-                            .setTitle("Error!");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    return null;
-                }));
-
-//         Animation Data for Andy OBJ. To be tested when Google update their Sceneform Plugin.
-//        AnimationData danceData = modelRenderable.getAnimationData("andy_dance");
-//        danceData.getName();
-//        danceData = modelRenderable.getAnimationData(0);
-//        ModelAnimator andyAnimator = new ModelAnimator(danceData, modelRenderable);
-//        andyAnimator.start();
-//        andyAnimator.setRepeatCount(50);
+        ViewRenderable.builder().setView(this, model).build().thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable));
     }
+
+//    private void renderObject(ArFragment fragment, Anchor anchor, int model) {
+//        ModelRenderable.builder()
+//                .setSource(this, model)
+//                .build()
+//                .thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable))
+//                .exceptionally((throwable -> {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                    builder.setMessage(throwable.getMessage())
+//                            .setTitle("Error!");
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                    return null;
+//                }));
+//    }
 
     private void addNodeToScene(ArFragment fragment, Anchor anchor, Renderable renderable){
         AnchorNode anchorNode = new AnchorNode(anchor);
         TransformableNode node = new TransformableNode(fragment.getTransformationSystem());
         node.setRenderable(renderable);
         node.setParent(anchorNode);
+        node.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
         fragment.getArSceneView().getScene().addChild(anchorNode);
         node.select();
     }
