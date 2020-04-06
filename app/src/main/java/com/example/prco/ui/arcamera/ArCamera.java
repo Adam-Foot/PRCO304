@@ -24,6 +24,7 @@ import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.AnimationData;
@@ -59,6 +60,7 @@ public class ArCamera extends AppCompatActivity {
         arFragment.getArSceneView().getScene().addOnUpdateListener(this::onUpdateFrame);
 
         arSceneView = arFragment.getArSceneView();
+        arSceneView.getPlaneRenderer().setVisible(false);
 
     }
 
@@ -123,12 +125,12 @@ public class ArCamera extends AppCompatActivity {
 
     private void addNodeToScene(ArFragment fragment, Anchor anchor, Renderable renderable){
         AnchorNode anchorNode = new AnchorNode(anchor);
-        TransformableNode node = new TransformableNode(fragment.getTransformationSystem());
+        Node node = new Node();
         node.setRenderable(renderable);
         node.setParent(anchorNode);
         node.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
         fragment.getArSceneView().getScene().addChild(anchorNode);
-        node.select();
+
     }
 
     @Override
