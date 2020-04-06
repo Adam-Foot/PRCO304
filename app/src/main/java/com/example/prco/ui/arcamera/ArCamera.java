@@ -16,6 +16,7 @@ import com.google.ar.core.AugmentedImage;
 import com.google.ar.core.AugmentedImageDatabase;
 import com.google.ar.core.Config;
 import com.google.ar.core.Frame;
+import com.google.ar.core.Pose;
 import com.google.ar.core.Session;
 import com.google.ar.core.TrackingState;
 import com.google.ar.core.exceptions.UnavailableApkTooOldException;
@@ -127,8 +128,10 @@ public class ArCamera extends AppCompatActivity {
         AnchorNode anchorNode = new AnchorNode(anchor);
         Node node = new Node();
         node.setRenderable(renderable);
-        node.setParent(anchorNode);
         node.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
+        node.setLocalScale(new Vector3(0.25f, 0.25f, 0.25f));
+        node.setParent(anchorNode);
+
         fragment.getArSceneView().getScene().addChild(anchorNode);
 
     }
