@@ -24,7 +24,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 
-public class SitesFragment extends Fragment {
+public class
+
+SitesFragment extends Fragment {
 
     private SitesViewModel sitesViewModel;
     private FirebaseFirestore mFirestore;

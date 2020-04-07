@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_arcamera"
-        android:name="com.example.prco.ui.arcamera.ArFragment"
-        android:label="@string/menu_camera"
-        tools:layout="@layout/fragment_camera" />
-
-    <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.prco.ui.usingapp.UsingAppFragment"
         android:label="@string/menu_usingapp"
@@ -46,4 +40,10 @@
         android:name="com.example.prco.ui.admin.AdminFragment"
         android:label="@string/menu_admin"
         tools:layout="@layout/fragment_admin" />
+
+    <activity
+        android:id="@+id/nav_arcamera"
+        android:name="com.example.prco.ui.arcamera.ArCamera"
+        android:label="activity_arcamera"
+        tools:layout="@layout/activity_arcamera" />
 </navigation>
