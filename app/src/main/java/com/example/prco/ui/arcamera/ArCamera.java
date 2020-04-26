@@ -36,6 +36,7 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 import com.google.common.collect.Sets;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -47,7 +48,10 @@ public class ArCamera extends AppCompatActivity {
     private ArFragment arFragment;
     private ArSceneView arSceneView;
     private ModelRenderable modelRenderable;
-    private boolean modelAdded = false;
+    private boolean model1Added = false;
+    private boolean model2Added = false;
+    private boolean model3Added = false;
+    private boolean model4Added = false;
     private boolean sessionConfigured = false;
 
     @Override
@@ -66,28 +70,16 @@ public class ArCamera extends AppCompatActivity {
     }
 
     private boolean setupAugmentedImageDatabase(Config config) {
-        AugmentedImageDatabase augmentedImageDatabase;
-
-        Bitmap augmentedImageBitmap = loadAugmentedImage();
-        if (augmentedImageBitmap == null) {
-            return false;
+        AugmentedImageDatabase augmentedImageDatabase = new AugmentedImageDatabase(mSession);
+        try(InputStream inputStream = getAssets().open("myimages.imgdb")) {
+            augmentedImageDatabase = AugmentedImageDatabase.deserialize(mSession, inputStream);
+        } catch (IOException e) {
+            Log.e(TAG, "IO exception loading augmented image database.", e);
         }
-
-        augmentedImageDatabase = new AugmentedImageDatabase(mSession);
-        augmentedImageDatabase.addImage("logoGrey", augmentedImageBitmap);
 
         config.setAugmentedImageDatabase(augmentedImageDatabase);
         config.setFocusMode(Config.FocusMode.AUTO);
         return true;
-    }
-
-    private Bitmap loadAugmentedImage() {
-        try (InputStream is = getAssets().open("logoGrey.png")) {
-            return BitmapFactory.decodeStream(is);
-        } catch (IOException e) {
-            Log.e(TAG, "IO Exception!", e);
-        }
-        return null;
     }
 
     private void onUpdateFrame(FrameTime frameTime) {
@@ -96,11 +88,12 @@ public class ArCamera extends AppCompatActivity {
         Collection<AugmentedImage> augmentedImages = frame.getUpdatedTrackables(AugmentedImage.class);
 
         for (AugmentedImage augmentedImage : augmentedImages) {
-            if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                if (augmentedImage.getName().contains("logoGrey") && !modelAdded) {
-                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.ar_test);
-                    modelAdded = true;
-                }
+            if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoGrey") && !model1Added) {
+                    renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_grey);
+                    model1Added = true;
+            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoGreen") && !model2Added) {
+                renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_green);
+                model2Added = true;
             }
         }
     }
