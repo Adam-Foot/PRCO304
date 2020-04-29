@@ -51,7 +51,6 @@ public class ArCamera extends AppCompatActivity {
     private boolean model1Added = false;
     private boolean model2Added = false;
     private boolean model3Added = false;
-    private boolean model4Added = false;
     private boolean sessionConfigured = false;
 
     @Override
@@ -91,15 +90,12 @@ public class ArCamera extends AppCompatActivity {
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoGrey") && !model1Added) {
                     renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_grey);
                     model1Added = true;
-            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoGreen") && !model2Added) {
+            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("circle") && !model2Added) {
                 renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_green);
                 model2Added = true;
-            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoBlue") && !model3Added) {
+            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("statue") && !model3Added) {
                 renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_red);
                 model3Added = true;
-            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoRed") && !model4Added) {
-                renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_blue);
-                model4Added = true;
             }
         }
     }
