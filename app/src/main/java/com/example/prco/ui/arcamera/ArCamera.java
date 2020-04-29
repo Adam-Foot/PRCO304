@@ -94,6 +94,12 @@ public class ArCamera extends AppCompatActivity {
             } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoGreen") && !model2Added) {
                 renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_green);
                 model2Added = true;
+            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoBlue") && !model3Added) {
+                renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_red);
+                model3Added = true;
+            } else if (augmentedImage.getTrackingState() == TrackingState.TRACKING && augmentedImage.getName().contains("logoRed") && !model4Added) {
+                renderObject(arFragment, augmentedImage.createAnchor(augmentedImage.getCenterPose()), R.layout.layout_ar_blue);
+                model4Added = true;
             }
         }
     }
