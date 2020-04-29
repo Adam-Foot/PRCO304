@@ -102,25 +102,13 @@ public class ArCamera extends AppCompatActivity {
         ViewRenderable.builder().setView(this, model).build().thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable));
     }
 
-//    private void renderObject(ArFragment fragment, Anchor anchor, int model) {
-//        ModelRenderable.builder()
-//                .setSource(this, model)
-//                .build()
-//                .thenAccept(renderable -> addNodeToScene(fragment, anchor, renderable))
-//                .exceptionally((throwable -> {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                    builder.setMessage(throwable.getMessage())
-//                            .setTitle("Error!");
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
-//                    return null;
-//                }));
-//    }
 
     private void addNodeToScene(ArFragment fragment, Anchor anchor, Renderable renderable){
         AnchorNode anchorNode = new AnchorNode(anchor);
         Node node = new Node();
         node.setRenderable(renderable);
+        renderable.setShadowCaster(false);
+        renderable.setShadowReceiver(false);
         node.setLocalRotation(Quaternion.axisAngle(new Vector3(-1f, 0, 0), 90f));
         node.setLocalScale(new Vector3(0.25f, 0.25f, 0.25f));
         node.setParent(anchorNode);
