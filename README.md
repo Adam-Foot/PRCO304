@@ -1,9 +1,5 @@
 ## PRCO304 Final Year Project - Adam Foot - AARA
 
-![](https://github.com/Adam-Foot/PRCO304/workflows/Android%20CI/badge.svg)
-
-Trello Link: https://trello.com/invite/b/FzjlqvxM/6326b7ef472f286a9026ad51d32edd0d/prco304-ar
-
 ## Introduction
 Within this repository you will find my final year project augmented reality Android aplication.
 
@@ -26,3 +22,8 @@ After you have all the requirements above you can download the repository and op
 4) On your Android smartphone you must enable Developer Options and turn on USB Debugging. To do so, follow the steps found here: 
 5) Plug your mobile device into your PC and wait for your device name to appear in Android Studio near the "Run" button.
 6) Once your device has been detected you can press Run and Android Studio will install the application onto your device. You will find the icon within your app page or home screen, depending on how you have your phone setup.
+
+Android CI GitHub Action status:
+![](https://github.com/Adam-Foot/PRCO304/workflows/Android%20CI/badge.svg)
+
+My Agile Trello board for this project can be found here: https://trello.com/invite/b/FzjlqvxM/6326b7ef472f286a9026ad51d32edd0d/prco304-ar
